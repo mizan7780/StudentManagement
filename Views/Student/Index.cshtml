@@ -1,0 +1,62 @@
+﻿@using StudentManagement.Models.ViewModels
+@model List<StudentListViewModel>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+
+<a href="@Url.Action("Create", "Student")" class="btn btn-dark mb-3">
+    <i class="bi bi-plus-circle"></i> Add New Student
+</a>
+<form method="get" class="row g-2 mb-3">
+
+    <div class="col-md-6">
+        <label>Search by Name</label>
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="bi  bi-search"></i>
+            </span>
+            <input type="text" name="Name" class="form-control" placeholder="Search by name.." />
+        </div>
+    </div>
+</form>
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>SL</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            int sl = 1;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@sl</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Age</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.id" class="btn btn-sm btn-info"> <i class="bi  bi-eye-fill"></i>View</a>
+                        <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i>Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i>Delete</a>
+                    </td>
+                    
+                   
+                </tr>
+                sl++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No records found.</td>
+            </tr>
+        }
+</table>

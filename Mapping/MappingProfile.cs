@@ -18,7 +18,7 @@ namespace StudentManagement.Mapping
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
             CreateMap<StudentCreateViewModel, Student>().ReverseMap();
             CreateMap<StudentEditViewModel, Student>().ReverseMap()
-                .ForMember(dest => dest.DOB, opt => opt.MapFrom(src => DateTime.Now.Year - src.DOB.Year))
+                .ForMember(dest => dest.DOB, opt => opt.MapFrom(src => src.DOB))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
 
             // Add other mappings as needed

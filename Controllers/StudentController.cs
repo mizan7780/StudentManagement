@@ -32,7 +32,7 @@ namespace StudentManagement.Controllers
 
             return View(studentList);
 
-            
+
         }
 
         public IActionResult Create()
@@ -52,7 +52,7 @@ namespace StudentManagement.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-       
+
         public async Task<IActionResult> Details(int id)
         {
             var student = await _studentService.GetByIdAsync(id);
@@ -104,6 +104,18 @@ namespace StudentManagement.Controllers
         {
             await _studentService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        [AcceptVerbs("Get", "Post")]
+        public async Task<IActionResult> IsEmailAvailable(string email)
+        {
+            var allStudents = await _studentService.GetAllAsync();
+            bool emailExists = allStudents.Any(s => s.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            if (emailExists)
+            {
+                return Json($"Email '{email}' is already in use.");
+            }
+            return Json(true);
         }
     }
 }
